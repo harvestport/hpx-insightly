@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='insightly',
+setup(name='hpx-insightly',
 	  version='2.2',
 	  description='A thin python wrapper around insightly api. This is a fork of insightly-python which not very active',
 	  url='https://github.com/harvestport/hpx-insightly',
