@@ -5,3 +5,6 @@
 apikey.txt
 testresults.txt
 insightly_data
+build
+dist
+*.egg-info
