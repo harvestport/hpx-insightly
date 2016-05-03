@@ -12,7 +12,6 @@ import datetime
 import json
 import mimetypes
 import os
-import string
 import sys
 import time
 import traceback
@@ -30,7 +29,7 @@ def lowercase(text):
     try:
         lc = text.lower()
     except:
-        lc = string.lower(text)
+        lc = str.lower(text)
     return lc
 
 def encode_query(text):
@@ -660,7 +659,7 @@ class Insightly():
             skip = 0
             top = 500
             results = list()
-            updated_after_utc = string.replace(updated_after_utc,' ','+')
+            updated_after_utc = str.replace(updated_after_utc,' ','+')
             while not done:
                 if updated_after_utc != '':
                     records = self.search(object_type, 'updated_after_utc=' + updated_after_utc, top=top, skip=skip)
@@ -797,10 +796,10 @@ class Insightly():
                         querystring += '&$orderby=' + urllib.quote(orderby)
                 if type(filters) is list:
                     for f in filters:
-                        f = string.replace(f,' ','%20')
-                        f = string.replace(f,'=','%20eq%20')
-                        f = string.replace(f,'>','%20gt%20')
-                        f = string.replace(f,'<','%20lt%20')
+                        f = str.replace(f,' ','%20')
+                        f = str.replace(f,'=','%20eq%20')
+                        f = str.replace(f,'>','%20gt%20')
+                        f = str.replace(f,'<','%20lt%20')
                         if querystring == '':
                             querystring += '?$filter=' + f
                         else:
@@ -843,7 +842,7 @@ class Insightly():
         
         """
         if type(object_type) is str:
-            object_type = string.lower(object_type)
+            object_type = str.lower(object_type)
         else:
             raise Exception('parameter object_type must be a string')
         if type(filters) is tuple:
@@ -885,22 +884,22 @@ class Insightly():
                 parm = f[0]
                 operator = f[1]
                 value = f[2]
-                if string.lower(parm) == 'any':
+                if str.lower(parm) == 'any':
                     field = str(d)
                 else:
                     field = d.get(parm, None)
                 if field is not None:
                     if operator == 'contains':
-                        if string.count(string.lower(field), string.lower(value)) > 0:
+                        if str.lower(field).count(str.lower(value)) > 0:
                             matches +=1
                     elif operator == '=':
-                        if string.lower(field) == string.lower(value):
+                        if str.lower(field) == str.lower(value):
                             matches += 1
                     elif operator == '>':
-                        if string.lower(field) > string.lower(value):
+                        if str.lower(field) > str.lower(value):
                             matches += 1
                     elif operator == '<':
-                        if string.lower(field) > string.lower(value):
+                        if str.lower(field) > str.lower(value):
                             matches += 1
                     else:
                         pass
@@ -1027,12 +1026,12 @@ class Insightly():
         url = '/' + object_type + '?count_total=true'
         headers = self.generateRequest(url, 'GET', None, response='headers')
         for h in headers:
-            pv = string.split(h, ':')
+            pv = h.split(':')
             if len(pv) > 1:
                 parm = pv[0]
                 value = pv[1]
-                if string.count(parm, 'Total-Count') > 0:
-                    num_records = int(string.strip(value))
+                if parm.count( 'Total-Count') > 0:
+                    num_records = int(value.strip())
         if num_records > 0:
             skip = 0
             records_found = 0
@@ -1079,8 +1078,8 @@ class Insightly():
         url = '/' + object_type + '/search?top=' + str(top)
         if skip > 0:
             url += '&skip=' + str(skip)
-        if string.count(expression,'=') > 0:
-            parms = string.split(expression,'=')
+        if expression.count('=') > 0:
+            parms = expression.split('=')
             if len(parms) == 2:
                 parm = parms[0]
                 parm = parm.encode('ascii','xmlcharrefreplace')
