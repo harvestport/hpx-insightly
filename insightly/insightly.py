@@ -235,7 +235,6 @@ class Insightly():
             else:
                 self.domain = 'https://api.insight.ly/v'
                 self.baseurl = self.domain + self.version
-        #self.filehandle = open('testresults.txt','w')
         self.test_data = dict()
         self.test_failures = list()
         self.slow_endpoints = list()
