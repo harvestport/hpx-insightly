@@ -146,8 +146,7 @@ class Insightly():
         from insightlytest import test
         test()
     
-    The program will test most API endpoints with sample data and report results to the console, as well as write
-    them out to the file testresults.txt
+    The program will test most API endpoints with sample data and report results in logs
     
     INTERACTIVE DOCUMENTATION
     
