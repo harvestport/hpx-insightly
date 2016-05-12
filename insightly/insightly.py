@@ -243,7 +243,7 @@ class Insightly():
                 f = open('apikey.txt', 'r')
                 apikey = f.read().rstrip()
                 f.close()
-                if self.debug:        print('API Key read from disk as ' + apikey)
+                logger.debug('API Key read from disk as ' + apikey)
             except:
                 raise Exception('No API provided on instantiation, and apikey.txt file not found in project directory.')
         version = str(version)
@@ -256,13 +256,13 @@ class Insightly():
             self.tests_passed = 0
             self.users = self.read('users')
             self.version = version
-            if self.debug:        print('CONNECTED: found ' + str(len(self.users)) + ' users')
+            logger.debug('CONNECTED: found ' + str(len(self.users)) + ' users')
             for u in self.users:
                 if u.get('ACCOUNT_OWNER', False):
                     self.owner_email = u.get('EMAIL_ADDRESS','')
                     self.owner_id = u.get('USER_ID', None)
                     self.owner_name = u.get('FIRST_NAME','') + ' ' + u.get('LAST_NAME','')
-                    if self.debug:        print('The account owner is ' + self.owner_name + ' [' + str(self.owner_id) + '] at ' + self.owner_email)
+                    logger.debug('The account owner is ' + self.owner_name + ' [' + str(self.owner_id) + '] at ' + self.owner_email)
                     break
             if offline and self.version == '2.2':
                 self.sync(refresh=refresh)
@@ -671,8 +671,7 @@ class Insightly():
                     records = self.search(object_type, 'updated_after_utc=' + updated_after_utc, top=top, skip=skip)
                 else:
                     records = self.read(object_type, '', top=top, skip=skip)
-                if self.debug:
-                    print('Search top ' + str(top) + ' ' + object_type + ' after ' + str(skip) + ' since ' + updated_after_utc + ' found ' + str(len(records)))
+                logger.debug('Search top ' + str(top) + ' ' + object_type + ' after ' + str(skip) + ' since ' + updated_after_utc + ' found ' + str(len(records)))
                 skip += top
                 for r in records:
                     if ids_only:
