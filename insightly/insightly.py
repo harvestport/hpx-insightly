@@ -234,9 +234,6 @@ class Insightly():
                 self.domain = 'https://api.insight.ly/v'
                 self.baseurl = self.domain + self.version
         
-        self.test_data = dict()
-        self.test_failures = list()
-        self.slow_endpoints = list()
         if len(apikey) < 1:
             try:
                 f = open('apikey.txt', 'r')
