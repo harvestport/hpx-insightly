@@ -25,7 +25,7 @@ try:
 except ImportError:
     import urllib2
     from urllib import urlencode
-  
+
 logger = logging.getLogger(__name__)
 
 def lowercase(text):
@@ -188,6 +188,7 @@ class Insightly():
         #
         # Define properties to store locally cached objects, when offline mode is enabled
         #
+        logger.setLevel(logging.DEBUG if debug else logging.INFO)
         
         self.activity_sets = list()
         self.contacts = list()
@@ -214,7 +215,6 @@ class Insightly():
         self.task_categories = list()
         self.teams = list()
         
-        self.debug = debug
         if gzip:
             self.gzip = True
         else:
