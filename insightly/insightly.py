@@ -332,7 +332,6 @@ class Insightly():
                     elapsed_time = td.total_seconds()
                     logger.info('PASS: POST ' + url)
                     logger.info(url, ' POST ', str(elapsed_time))
-                    
                     delta = self.check_difference(data, object_graph)
                     return data
                 except:
@@ -341,9 +340,7 @@ class Insightly():
                     elapsed_time = td.total_seconds()
                     self.log(False, url, 'POST', str(elapsed_time))
                     logger.error('FAIL: POST ' + url)
-                    
                     logger.error('    TRACE: ' + traceback.format_exc())
-                    
             else:
                 text = self.generateRequest(url, 'POST', data)
                 data = json.loads(text)
@@ -378,10 +375,8 @@ class Insightly():
                     td = end_time - start_time
                     elapsed_time = td.total_seconds()
                     logger.info(url, ' POST ', str(elapsed_time))
-                    
                     self.tests_passed += 1
                     logger.info('PASS: POST ' + url)
-                    
                     data = json.loads(text)
                     return data
                 except:
@@ -390,7 +385,6 @@ class Insightly():
                     elapsed_time = td.total_seconds()
                     self.log(False, url, 'POST', str(elapsed_time))
                     logger.error('FAIL: POST ' + url)
-                    
                     logger.error('    TRACE: ' + traceback.format_exc())   
             else:
                 text = self.generateRequest(url, 'POST', data)
@@ -492,11 +486,9 @@ class Insightly():
             try:
                 self.generateRequest(url, 'DELETE', '', alt_auth = 'borkborkborkborkbork')
                 logger.error('FAIL: DELETE w/ bad auth ' + ur)
-                
             except:
                 self.tests_passed += 1
                 logger.info('PASS: DELETE w/ bad auth ' + url)
-                
         if test:
             self.tests_run += 1
             try:
@@ -506,7 +498,6 @@ class Insightly():
                 elapsed_time = td.total_seconds()
                 logger.info(url, ' DELETE ', str(elapsed_time))
                 logger.info('PASS: DELETE ' + url)
-                
                 self.tests_passed += 1
             except:
                 end_time = datetime.datetime.now()
@@ -514,9 +505,7 @@ class Insightly():
                 elapsed_time = td.total_seconds()
                 self.log(False, url, 'DELETE', str(elapsed_time))
                 logger.error('FAIL: DELETE ' + url)
-                
                 logger.error('    TRACE: ' + traceback.format_exc())
-                
         else:
             text = self.generateRequest(url, 'DELETE', '')
             return True
@@ -1050,7 +1039,6 @@ class Insightly():
                         skip += 500
                         last_id = records[len(records) - 1][record_id]
                 logger.info('FOUND ' + str(records_found) + ' of ' + str(num_records) + ' expected ' + object_type)
-                
             else:
                 return
         
@@ -1101,7 +1089,6 @@ class Insightly():
                 elapsed_time = td.total_seconds()
                 logger.info(url, ' GET ', str(elapsed_time))
                 logger.info('PASS: GET/SEARCH ' + url)
-                
                 try:
                     results = self.dictToList(json.loads(text))
                 except:
@@ -1121,8 +1108,6 @@ class Insightly():
                 self.log(False, url, 'GET', str(elapsed_time))
                 logger.error('FAIL: GET/SEARCH ' + url)
                 logger.error(    'TRACE: ' + traceback.format_exc())
-                
-                
                 return []
         else:
             text = self.generateRequest(url, 'GET', '')
@@ -1337,7 +1322,6 @@ class Insightly():
                 elapsed_time = td.total_seconds()
                 logger.info(url, ' PUT ', str(elapsed_time))
                 logger.info('PASS: UPLOAD IMAGE: ' + url)
-                
                 self.tests_passed += 1
             except:
                 end_time = datetime.datetime.now()
@@ -1345,9 +1329,7 @@ class Insightly():
                 elapsed_time = td.total_seconds()
                 self.log(False, url, 'PUT', str(elapsed_time))
                 logger.error('FAIL: UPLOAD IMAGE: ' + url)
-                logger.error('    TRACE: ' + traceback.format_exc())
-                
-                
+                logger.error('    TRACE: ' + traceback.format_exc())      
         else:
             return self.generateRequest(url, 'PUT', value)
         
