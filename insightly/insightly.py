@@ -262,7 +262,6 @@ class Insightly():
                     break
             if offline and self.version == '2.2':
                 self.sync(refresh=refresh)
-                # add more object types once contacts are debugged
         else:
             raise Exception('Python library only supports v2.1 or v2.2 APIs. We recommend using v2.2.')
         
@@ -283,9 +282,6 @@ class Insightly():
                 logger.info('    DELTA:  ' + str(diff_keys) + ' fields mismatch')
                 logger.info('    POSTED: ' + str(old))
                 logger.info('    RECVD:  ' + str(new))
-                
-                
-                
             return diff_keys
         return []
     
@@ -395,8 +391,7 @@ class Insightly():
                     self.log(False, url, 'POST', str(elapsed_time))
                     logger.error('FAIL: POST ' + url)
                     
-                    logger.error('    TRACE: ' + traceback.format_exc())
-                    
+                    logger.error('    TRACE: ' + traceback.format_exc())   
             else:
                 text = self.generateRequest(url, 'POST', data)
                 data = json.loads(text)
@@ -416,7 +411,6 @@ class Insightly():
         print('TESTING ' + object_type + ' v' + self.version)
         
         while r < repetitions:
-            # test read method
             st = datetime.datetime.now()
             self.tests_run += 1
             try:
@@ -627,12 +621,10 @@ class Insightly():
             self.tests_run += 1
             try:
                 self.generateRequest(url, 'GET', '', alt_auth = 'borkborkborkborkbork')
-                logger.error('FAIL: GET w/ bad auth ' + url)
-                
+                logger.error('FAIL: GET w/ bad auth ' + url) 
             except:
                 self.tests_passed += 1
-                logger.info('PASS: GET w/ bad auth ' + url)
-                
+                logger.info('PASS: GET w/ bad auth ' + url)      
         if test:
             self.tests_run += 1
             try:
@@ -654,9 +646,7 @@ class Insightly():
                 elapsed_time = td.total_seconds()
                 self.log(False, url, 'GET', str(elapsed_time))
                 logger.error('FAIL: GET ' + url)
-                
                 logger.error('    TRACE: ' + traceback.format_exc())
-                
         else:
             text = self.generateRequest(url, 'GET', '')
             try:
@@ -976,7 +966,6 @@ class Insightly():
             except:
                 self.tests_passed += 1
                 logger.info('PASS: GET w/ bad auth ' + url)
-                
         if test:
             self.tests_run += 1
             try:
@@ -984,7 +973,6 @@ class Insightly():
                 text = self.generateRequest(url,'GET','')
                 self.tests_passed += 1
                 logger.info('PASS: GET ' + url)
-                
                 try:
                     results = self.dictToList(json.loads(text))
                 except:
@@ -1001,8 +989,6 @@ class Insightly():
                 self.log(False, url, 'GET', str(elapsed_time))
                 logger.error('FAIL: GET ' + url)
                 logger.error('    TRACE: ' + traceback.format_exc())
-                
-                
         else:
             text = self.generateRequest(url, 'GET', '')
             try:
@@ -1103,11 +1089,9 @@ class Insightly():
             try:
                 self.generateRequest(url, 'GET', '', alt_auth = 'borkborkborkborkbork')
                 logger.error('FAIL: GET/SEARCH w/ bad auth ' + url)
-                
             except:
                 self.tests_passed += 1
                 logger.info('PASS: GET/SEARCH w/ bad auth ' + url)
-                
         if test:
             self.tests_run += 1
             try:
@@ -1267,7 +1251,6 @@ class Insightly():
                     logger.info(url, ' PUT ', str(elapsed_time))
                     data = json.loads(text)
                     logger.info('PASS: PUT ' + url)
-                    
                     self.tests_passed += 1
                     if date_updated_utc is not None:
                         try:
@@ -1321,9 +1304,7 @@ class Insightly():
                 td = end_time - start_time
                 elapsed_time = td.total_seconds()
                 logger.info(url, ' POST ', str(elapsed_time))
-                
                 logger.info('PASS: UPLOAD ' + url)
-                
                 self.tests_passed += 1
                 return json.loads(text)
             except:
@@ -1364,7 +1345,7 @@ class Insightly():
                 elapsed_time = td.total_seconds()
                 self.log(False, url, 'PUT', str(elapsed_time))
                 logger.error('FAIL: UPLOAD IMAGE: ' + url)
-                logger.error(    'TRACE: ' + traceback.format_exc())
+                logger.error('    TRACE: ' + traceback.format_exc())
                 
                 
         else:
